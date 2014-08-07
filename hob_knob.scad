@@ -14,7 +14,7 @@ inner_diameter = 14;
 //in mm
 shaft_length = 11;
 //in mm
-plunge_depth = 7;
+plunge_depth = 4;
 //in mm
 clearance_height = 8;
 //in mm
@@ -22,6 +22,7 @@ point_size = 6;
 //degrees clockwise from the flat side
 point_angle = 90; 
 no_sides = 11;
+clearance = 0.1*1;
 stiffener_thickness = 2*1; // mm
 $fn = 	100*1;
 
@@ -48,8 +49,8 @@ difference() {
 		// D-shaft hole
 		rotate([0,0,-90-point_angle]) {
 			translate([0,0,(height-shaft_length)]) difference() {
-				cylinder(h=(shaft_length+plunge_depth+2), r=shaft_diameter/2);
-				translate([-shaft_diameter/2,(D_width-shaft_diameter/2),-1]) cube(size=[shaft_diameter,shaft_diameter,shaft_length+plunge_depth+4]);
+				cylinder(h=(shaft_length+plunge_depth+2), r=(shaft_diameter+clearance)/2);
+				translate([-shaft_diameter/2,((D_width+clearance)-shaft_diameter/2),-1]) cube(size=[shaft_diameter+clearance,shaft_diameter+clearance,shaft_length+plunge_depth+4]);
 			}
 		}
 	}
