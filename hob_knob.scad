@@ -64,7 +64,7 @@ difference() {
 translate([36/2,0,0]) {
 	polyhedron(
 		points=[
-			[point_size,0,24],[-1,-3,24],[-1,3,24],
+			[point_size,0,height],[-wall_thickness/3,-point_size/2,height],[-wall_thickness/3,point_size/2,height],
 			[0,0,0]
 		],
 		triangles=[
