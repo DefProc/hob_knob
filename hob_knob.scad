@@ -1,18 +1,29 @@
 //design variables
-height = 				24; // mm
-shaft_diameter = 	 6.1; // mm
-D_width = 			 4.7; // mm
-outer_diameter = 	36; // mm
-wall_thickness =    3; // mm
-inner_diameter = 	14; // mm
-shaft_length = 		11; // mm
-plunge_depth = 		 7; // mm 
-clearance_height =  8; // mm
-point_size = 		 6; // mm
-point_angle = 		90; // degrees
-no_sides = 			11;
-stiffener_thickness = 2; // mm
-$fn = 	100;
+//in mm
+height = 24;
+//in mm
+shaft_diameter =  6.1;
+//in mm
+D_width = 4.7;
+//in mm
+outer_diameter = 36;
+//in mm
+wall_thickness = 3;
+//in mm
+inner_diameter = 14;
+//in mm
+shaft_length = 11;
+//in mm
+plunge_depth = 7;
+//in mm
+clearance_height = 8;
+//in mm
+point_size = 6;
+//degrees clockwise from the flat side
+point_angle = 90; 
+no_sides = 11;
+stiffener_thickness = 2*1; // mm
+$fn = 	100*1;
 
 difference() {
 	// main shape
