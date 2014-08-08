@@ -25,6 +25,8 @@ no_sides = 11;
 clearance = 0.1*1;
 stiffener_thickness = 2*1; // mm
 $fn = 	100*1;
+//in mm (0 for no chamfer)
+top_chamfer=3;
 
 difference() {
 	// main shape
@@ -33,7 +35,8 @@ difference() {
 			difference() {
 				// overall form
 				union() {
-					cylinder(h=height, r=outer_diameter/2, $fn=no_sides);
+					translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
+					cylinder(h=top_chamfer, r1=-top_chamfer+outer_diameter/2, r2=outer_diameter/2, $fn=no_sides);
 					translate([0,0,height]) cylinder(h=(plunge_depth), r=(inner_diameter/2));
 				}
 				// hollow torus
@@ -43,8 +46,8 @@ difference() {
 				}
 			}
 			// internal supports
-			translate([0,0,height/2]) cube(size=[outer_diameter-wall_thickness, stiffener_thickness, height], center=true);
-			translate([0,0,height/2]) cube(size=[stiffener_thickness, outer_diameter-wall_thickness, height], center=true);
+			translate([0,0,(top_chamfer+height)/2]) cube(size=[outer_diameter-wall_thickness, stiffener_thickness, height-top_chamfer], center=true);
+			translate([0,0,(top_chamfer+height)/2]) cube(size=[stiffener_thickness, outer_diameter-wall_thickness, height-top_chamfer], center=true);
 		}
 		// D-shaft hole
 		rotate([0,0,-90-point_angle]) {
@@ -65,7 +68,7 @@ translate([outer_diameter/2,0,0]) {
 	polyhedron(
 		points=[
 			[point_size,0,height],[-wall_thickness/3,-point_size/2,height],[-wall_thickness/3,point_size/2,height],
-			[0,0,0]
+			[0,0,top_chamfer]
 		],
 		triangles=[
 			[0,1,2],
