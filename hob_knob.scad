@@ -14,7 +14,7 @@ inner_diameter = 14;
 //in mm
 shaft_length = 11;
 //in mm
-plunge_depth = 4;
+plunge_depth = 3;
 //in mm
 clearance_height = 8;
 //in mm
@@ -61,7 +61,7 @@ difference() {
 };
 
 // zero marker
-translate([36/2,0,0]) {
+translate([outer_diameter/2,0,0]) {
 	polyhedron(
 		points=[
 			[point_size,0,height],[-wall_thickness/3,-point_size/2,height],[-wall_thickness/3,point_size/2,height],
