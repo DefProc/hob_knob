@@ -21,7 +21,7 @@ clearance_height = 8;
 /* Cosmetic Settings */
 no_sides =11;
 //in mm (0 for no chamfer)
-top_chamfer=3;
+top_chamfer=1.5;
 
 /* Zero Pointer */
 with_pointer = "yes"; // [yes,no]
@@ -31,8 +31,8 @@ point_size = 6;
 point_angle = 90; 
 
 /* Additonal Features */
-extra_feature="scollops"; // [none,scollops,taps]
-number_of_features=2;
+extra_feature="taps"; // [none,scollops,taps]
+number_of_features=5;
 //degrees
 offset_angle=0;
 
@@ -98,16 +98,19 @@ module scollop_wall() {
 }
 
 module taps() {
-	for (i=[0:number_of_features]) {
-		rotate([0,0,(360/number_of_features)*i+offset_angle]) {
-			minkowski() {
-				hull() {
-					translate([0,0,0]) cylinder(h=tap_height*2, r=1);
-					translate([-outer_diameter/1.25,0,0]) cylinder(h=tap_height, r=outer_diameter/10);
+	difference() {
+		for (i=[0:number_of_features]) {
+			rotate([0,0,(360/number_of_features)*i+offset_angle]) {
+				minkowski() {
+					hull() {
+						translate([0,0,0]) cylinder(h=tap_height*2, r=1);
+						translate([-outer_diameter/1.25,0,0]) cylinder(h=tap_height, r=outer_diameter/10);
+					}
+					translate([0,0,tap_height]) sphere(r=tap_height/2, $fn=5);
 				}
-				translate([0,0,tap_height/2]) sphere(r=tap_height/2, $fn=10);
 			}
 		}
+		cylinder(h=height, r=(outer_diameter/2)-wall_thickness);
 	}
 }
 
