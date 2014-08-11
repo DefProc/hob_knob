@@ -1,9 +1,9 @@
 /* Design Variables */
 //in mm
 height = 24;
-//in mm (set measured value, clearance is added)
+//in mm (set to measured value, clearance is added)
 shaft_diameter =  6.1;
-//in mm (set measured value, clearance is added)
+//in mm (set to measured value, clearance is added)
 D_width = 4.7;
 //in mm
 outer_diameter = 36;
@@ -31,8 +31,8 @@ point_size = 6;
 point_angle = 90; 
 
 /* Additonal Features */
-extra_feature="taps"; // [none,scollops,taps]
-number_of_features=5;
+extra_feature="scollops"; // [none,scollops,taps]
+number_of_features=2;
 //degrees
 offset_angle=0;
 
