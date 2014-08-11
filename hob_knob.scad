@@ -32,6 +32,9 @@ point_angle = 90;
 
 /* Additonal Features */
 extra_feature="scollops"; // [none,scollops]
+number_of_scollops=2;
+// degrees
+scollop_offset_angle=0;
 
 clearance = 0.1*1;
 stiffener_thickness = 2*1; // mm
@@ -74,26 +77,29 @@ module knob() {
 	}
 };
 
-module scollop_gap() {
-	translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=height/8);
-}
-
 module scollop() {
-	scollop_gap();
-	mirror([0,1,0]) scollop_gap();
-}
-
-module scollop_wall_basic() {
-	intersection() {
-		translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
-		translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=(height/8)+wall_thickness);
-	};
+	rotate([0,0,scollop_offset_angle]) {
+		for (i=[0:number_of_scollops]) {
+				rotate([0,0,(360/number_of_scollops)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=height/8);
+		}
+	}
 }
 
 module scollop_wall() {
-	scollop_wall_basic();
-	mirror([0,1,0]) scollop_wall_basic();
+	rotate([0,0,scollop_offset_angle]) {
+		intersection() {
+			translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
+			for (i=[0:number_of_scollops]) {
+				rotate([0,0,(360/number_of_scollops)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=(height/8)+wall_thickness);
+			}
+		}
+	};
 }
+
+//module scollop_wall() {
+//	scollop_wall_basic();
+//	mirror([0,1,0]) scollop_wall_basic();
+//}
 
 if(extra_feature=="scollops") {
 	difference() {
