@@ -1,4 +1,4 @@
-/* Design Variables */
+/* [Design Variables] */
 //in mm
 height = 24;
 //in mm (set to measured value, clearance is added)
@@ -18,19 +18,19 @@ plunge_depth = 3;
 //in mm
 clearance_height = 8;
 
-/* Cosmetic Settings */
+/* [Cosmetic Settings] */
 no_sides =11;
 //in mm (0 for no chamfer)
 top_chamfer=1.5;
 
-/* Zero Pointer */
+/* [Zero Pointer] */
 with_pointer = "yes"; // [yes,no]
 //in mm
 point_size = 6;
 //degrees clockwise from the flat side
 point_angle = 90; 
 
-/* Additonal Features */
+/* [Additional Features] */
 extra_feature="scollops"; // [none,scollops,taps]
 number_of_features=2;
 //degrees
