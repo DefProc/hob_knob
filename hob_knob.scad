@@ -31,11 +31,12 @@ point_size = 6;
 point_angle = 90; 
 
 /* Additonal Features */
-extra_feature="scollops"; // [none,scollops]
+extra_feature="scollops"; // [none,scollops,taps]
 number_of_features=2;
 //degrees
 offset_angle=0;
 
+tap_height=3*1;
 clearance = 0.1*1;
 stiffener_thickness = 2*1; // mm
 $fn = 	100*1;
@@ -96,10 +97,19 @@ module scollop_wall() {
 	};
 }
 
-//module scollop_wall() {
-//	scollop_wall_basic();
-//	mirror([0,1,0]) scollop_wall_basic();
-//}
+module taps() {
+	for (i=[0:number_of_features]) {
+		rotate([0,0,(360/number_of_features)*i+offset_angle]) {
+			minkowski() {
+				hull() {
+					translate([0,0,0]) cylinder(h=tap_height*2, r=1);
+					translate([-outer_diameter/1.25,0,0]) cylinder(h=tap_height, r=outer_diameter/10);
+				}
+				translate([0,0,tap_height/2]) sphere(r=tap_height/2, $fn=10);
+			}
+		}
+	}
+}
 
 if(extra_feature=="scollops") {
 	difference() {
@@ -110,6 +120,9 @@ if(extra_feature=="scollops") {
 		knob();
 		scollop();
 	}
+} else if(extra_feature=="taps") {
+	knob();
+	taps();
 } else {
 	knob();
 }
