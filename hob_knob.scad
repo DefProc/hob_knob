@@ -43,40 +43,55 @@ $fn = 	100*1;
 
 module knob() {
 	difference() {
-		// main shape
 		difference(){
 			union() {
 				difference() {
-					// overall form
-					union() {
-						translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
-						cylinder(h=top_chamfer, r1=-top_chamfer+outer_diameter/2, r2=outer_diameter/2, $fn=no_sides);
-						translate([0,0,height]) cylinder(h=(plunge_depth), r=(inner_diameter/2));
-					}
-					// hollow torus
-					translate([0,0,(wall_thickness)]) difference() {
-						cylinder(h=height, r=(outer_diameter/2)-wall_thickness);
-						translate([0,0,-1]) cylinder(h=height+2, r=inner_diameter/2);
-					}
+					overall_knob();
+					hollow_torus();
 				}
-				// internal supports
-				translate([0,0,(top_chamfer+height)/2]) cube(size=[outer_diameter-wall_thickness, stiffener_thickness, height-top_chamfer], center=true);
-				translate([0,0,(top_chamfer+height)/2]) cube(size=[stiffener_thickness, outer_diameter-wall_thickness, height-top_chamfer], center=true);
+				internal_supports();
 			}
-			// D-shaft hole
-			rotate([0,0,-90-point_angle]) {
-				translate([0,0,(height-shaft_length)]) difference() {
-					cylinder(h=(shaft_length+plunge_depth+2), r=(shaft_diameter+clearance)/2);
-					translate([-shaft_diameter/2,((D_width+clearance)-shaft_diameter/2),-1]) cube(size=[shaft_diameter+clearance,shaft_diameter+clearance,shaft_length+plunge_depth+4]);
-				}
-			}
+			D_shaft_hole();
 		}
-		translate([0,0,height-clearance_height]) difference() {
-			cylinder(h=height, r=(outer_diameter/2)-wall_thickness);
-			translate([0,0,-1]) cylinder(h=height+2, r=inner_diameter/2);
+		internal_clearance();
+	}
+}
+
+module overall_knob() {
+	union() {
+		translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
+		cylinder(h=top_chamfer, r1=-top_chamfer+outer_diameter/2, r2=outer_diameter/2, $fn=no_sides);
+		translate([0,0,height]) cylinder(h=(plunge_depth), r=(inner_diameter/2));
+	}
+}
+
+module hollow_torus() {
+	translate([0,0,(wall_thickness)]) difference() {
+		cylinder(h=height, r=(outer_diameter/2)-wall_thickness);
+		translate([0,0,-1]) cylinder(h=height+2, r=inner_diameter/2);
+	}
+}
+
+module internal_supports() {
+	translate([0,0,(top_chamfer+height)/2]) cube(size=[outer_diameter-wall_thickness, stiffener_thickness, height-top_chamfer], center=true);
+	translate([0,0,(top_chamfer+height)/2]) cube(size=[stiffener_thickness, outer_diameter-wall_thickness, height-top_chamfer], center=true);
+}
+
+module D_shaft_hole() {
+	rotate([0,0,-90-point_angle]) {
+		translate([0,0,(height-shaft_length)]) difference() {
+			cylinder(h=(shaft_length+plunge_depth+2), r=(shaft_diameter+clearance)/2);
+			translate([-shaft_diameter/2,((D_width+clearance)-shaft_diameter/2),-1]) cube(size=[shaft_diameter+clearance,shaft_diameter+clearance,shaft_length+plunge_depth+4]);
 		}
 	}
-};
+}
+
+module internal_clearance() {
+	translate([0,0,height-clearance_height]) difference() {
+		cylinder(h=height, r=(outer_diameter/2)-wall_thickness);
+		translate([0,0,-1]) cylinder(h=height+2, r=inner_diameter/2);
+	}
+}
 
 module scollop() {
 	rotate([0,0,offset_angle]) {
