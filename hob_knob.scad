@@ -1,9 +1,9 @@
 /* Design Variables */
 //in mm
 height = 24;
-//in mm
+//in mm (set measured value, clearance is added)
 shaft_diameter =  6.1;
-//in mm
+//in mm (set measured value, clearance is added)
 D_width = 4.7;
 //in mm
 outer_diameter = 36;
@@ -32,9 +32,9 @@ point_angle = 90;
 
 /* Additonal Features */
 extra_feature="scollops"; // [none,scollops]
-number_of_scollops=2;
-// degrees
-scollop_offset_angle=0;
+number_of_features=2;
+//degrees
+offset_angle=0;
 
 clearance = 0.1*1;
 stiffener_thickness = 2*1; // mm
@@ -78,9 +78,9 @@ module knob() {
 };
 
 module scollop() {
-	rotate([0,0,scollop_offset_angle]) {
-		for (i=[0:number_of_scollops]) {
-				rotate([0,0,(360/number_of_scollops)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=height/8);
+	rotate([0,0,offset_angle]) {
+		for (i=[0:number_of_features]) {
+				rotate([0,0,(360/number_of_features)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=height/8);
 		}
 	}
 }
@@ -88,9 +88,9 @@ module scollop() {
 module scollop_wall() {
 	intersection() {
 		translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
-		rotate([0,0,scollop_offset_angle]) {
-			for (i=[0:number_of_scollops]) {
-				rotate([0,0,(360/number_of_scollops)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=(height/8)+wall_thickness);
+		rotate([0,0,offset_angle]) {
+			for (i=[0:number_of_features]) {
+				rotate([0,0,(360/number_of_features)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=(height/8)+wall_thickness);
 			}
 		}
 	};
