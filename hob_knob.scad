@@ -19,7 +19,7 @@ plunge_depth = 3;
 clearance_height = 8;
 
 /* Cosmetic Settings */
-no_sides = 11;
+no_sides =11;
 //in mm (0 for no chamfer)
 top_chamfer=3;
 
@@ -86,9 +86,9 @@ module scollop() {
 }
 
 module scollop_wall() {
-	rotate([0,0,scollop_offset_angle]) {
-		intersection() {
-			translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
+	intersection() {
+		translate([0,0,top_chamfer]) cylinder(h=height-top_chamfer, r=outer_diameter/2, $fn=no_sides);
+		rotate([0,0,scollop_offset_angle]) {
 			for (i=[0:number_of_scollops]) {
 				rotate([0,0,(360/number_of_scollops)*i]) translate([-outer_diameter/2,(outer_diameter/2)+(height/8)-(wall_thickness),height/3]) rotate([0,90,0]) cylinder(h=outer_diameter, r=(height/8)+wall_thickness);
 			}
