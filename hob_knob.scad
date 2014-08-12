@@ -31,7 +31,7 @@ point_size = 5;
 point_angle = 90; 
 
 /* [Additional Features] */
-extra_feature="scollops"; // [none,scollops,taps]
+extra_feature="scollops"; // [none,scollops,taps,cutaway]
 number_of_features=3;
 //degrees
 offset_angle=-30;
@@ -141,7 +141,12 @@ if(extra_feature=="scollops") {
 } else if(extra_feature=="taps") {
 	knob();
 	taps();
-} else {
+} else if(extra_feature=="cutaway") {
+	difference() {
+		knob();
+		translate([0,0,-1]) cube([1000,1000,1000]);
+	}
+}else {
 	knob();
 }
 
