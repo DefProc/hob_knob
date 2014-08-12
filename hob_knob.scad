@@ -1,6 +1,6 @@
 /* [Design Variables] */
 //in mm
-height = 24;
+height = 20;
 //in mm (set to measured value, clearance is added)
 shaft_diameter =  6.1;
 //in mm (set to measured value, clearance is added)
@@ -19,22 +19,22 @@ plunge_depth = 3;
 clearance_height = 8;
 
 /* [Cosmetic Settings] */
-no_sides =11;
+no_sides =9;
 //in mm (0 for no chamfer)
 top_chamfer=1.5;
 
 /* [Zero Pointer] */
 with_pointer = "yes"; // [yes,no]
 //in mm
-point_size = 6;
+point_size = 5;
 //degrees clockwise from the flat side
 point_angle = 90; 
 
 /* [Additional Features] */
 extra_feature="scollops"; // [none,scollops,taps]
-number_of_features=2;
+number_of_features=3;
 //degrees
-offset_angle=0;
+offset_angle=-30;
 
 tap_height=3*1;
 clearance = 0.1*1;
